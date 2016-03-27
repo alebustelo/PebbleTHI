@@ -1,0 +1,69 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "AWD",
+    "longName": "Toha Heavy Industries",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/THIbackground_down.png",
+                "name": "THI_IMAGE_BACKGROUND_LOWER",
+                "type": "png"
+            },
+            {
+                "file": "images/THIbackground.png",
+                "name": "THI_IMAGE_BACKGROUND",
+                "type": "png"
+            },
+            {
+                "file": "images/THI Small Icon.png",
+                "menuIcon": true,
+                "name": "THI_SMALL",
+                "type": "png"
+            },
+            {
+                "file": "fonts/perfect-dos-vga.ttf",
+                "name": "FONT_PERFECT_DOS_12",
+                "type": "font"
+            },
+            {
+                "file": "fonts/perfect-dos-vga.ttf",
+                "name": "FONT_PERFECT_DOS_28",
+                "type": "font"
+            },
+            {
+                "compatibility": "2.7",
+                "file": "fonts/perfect-dos-vga.ttf",
+                "name": "FONT_PERFECT_DOS_20",
+                "type": "font"
+            },
+            {
+                "compatibility": "2.7",
+                "file": "fonts/perfect-dos-vga.ttf",
+                "name": "FONT_PERFECT_DOS_48",
+                "type": "font"
+            },
+            {
+                "file": "fonts/perfect-dos-vga.ttf",
+                "name": "FONT_PERFECT_DOS_18",
+                "type": "font"
+            },
+            {
+                "file": "fonts/perfect-dos-vga.ttf",
+                "name": "FONT_PERFECT_DOS_24",
+                "type": "font"
+            }
+        ]
+    },
+    "sdkVersion": "2",
+    "shortName": "Toha Heavy Industries",
+    "uuid": "443b908b-00f9-4344-9aa6-7be0e69bc356",
+    "versionCode": 1,
+    "versionLabel": "0.2",
+    "watchapp": {
+        "watchface": true
+    }
+}

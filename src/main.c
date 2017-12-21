@@ -4,10 +4,11 @@ static Window *s_main_window;
 static TextLayer *s_time_layer;
 static TextLayer *s_date_layer;
 static TextLayer *s_battery_layer;
+static TextLayer *s_bluetooth_layer;
 
 static GFont s_time_font;
 static GFont s_date_font;
-static GFont s_battery_font;
+static GFont s_battery_and_bt_font;
 static BitmapLayer *s_background_layer;
 static GBitmap *s_background_bitmap;
 
@@ -58,6 +59,16 @@ static void battery_handler(BatteryChargeState new_state) {
   text_layer_set_text(s_battery_layer, s_battery_buffer);
 }
 
+void bluetooth_connection_handler(bool connected) {
+  if (connected) {
+    text_layer_set_text(s_bluetooth_layer, "BT ON");
+  } else {
+    text_layer_set_text(s_bluetooth_layer, "BT OFF");
+    // Issue a vibrating alert
+    vibes_double_pulse();
+  }
+}
+
 static void main_window_load(Window *window) {
   //Create GBitmap, then set to created BitmapLayer
   //s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_THI_IMAGE_BACKGROUND);
@@ -96,13 +107,28 @@ static void main_window_load(Window *window) {
   s_battery_layer = text_layer_create(GRect(xBPos, yBPos, 144-xBPos, 168-yBPos));
   text_layer_set_background_color(s_battery_layer, GColorClear);
   text_layer_set_text_color(s_battery_layer, GColorWhite);
-  s_battery_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_PERFECT_DOS_12));
-  text_layer_set_font(s_battery_layer, s_battery_font);
+  s_battery_and_bt_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_PERFECT_DOS_12));
+  text_layer_set_font(s_battery_layer, s_battery_and_bt_font);
   text_layer_set_text(s_battery_layer, "OFFL");
   text_layer_set_text_alignment(s_battery_layer, GTextAlignmentCenter);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_battery_layer));
   
   battery_handler(battery_state_service_peek());
+  // END
+  
+  // Bluetooth Layer
+  int xBTPos = 10;
+  int yBTPos = 10;
+  s_bluetooth_layer = text_layer_create(GRect(xBTPos, yBTPos, 50, 168-yBTPos));
+  text_layer_set_background_color(s_bluetooth_layer, GColorClear);
+  text_layer_set_text_color(s_bluetooth_layer, GColorWhite);
+  //s_battery_and_bt_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_PERFECT_DOS_12));
+  text_layer_set_font(s_bluetooth_layer, s_battery_and_bt_font);
+  text_layer_set_text(s_bluetooth_layer, "BT OFF");
+  text_layer_set_text_alignment(s_bluetooth_layer, GTextAlignmentCenter);
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_bluetooth_layer));
+  
+  bluetooth_connection_handler(connection_service_peek_pebble_app_connection());
   // END
   
   //Create GFont
@@ -124,7 +150,7 @@ static void main_window_unload(Window *window) {
   //Unload GFont
   fonts_unload_custom_font(s_time_font);
   fonts_unload_custom_font(s_date_font);
-  fonts_unload_custom_font(s_battery_font);
+  fonts_unload_custom_font(s_battery_and_bt_font);
   
   //Destroy GBitmap
   gbitmap_destroy(s_background_bitmap);
@@ -136,6 +162,7 @@ static void main_window_unload(Window *window) {
   text_layer_destroy(s_time_layer);
   text_layer_destroy(s_date_layer);
   text_layer_destroy(s_battery_layer);
+  text_layer_destroy(s_bluetooth_layer);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
@@ -159,9 +186,18 @@ static void init() {
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   battery_state_service_subscribe(battery_handler);
+  
+  // Register for Bluetooth connection updates
+  connection_service_subscribe((ConnectionHandlers) {
+    .pebble_app_connection_handler = bluetooth_connection_handler
+  });
+  
 }
 
 static void deinit() {
+  // Unsubscribe from bluetooth connection status and TickTimer
+  connection_service_unsubscribe();
+  tick_timer_service_unsubscribe();
   // Destroy Window
   window_destroy(s_main_window);
 }

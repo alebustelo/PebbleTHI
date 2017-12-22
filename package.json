@@ -1,0 +1,84 @@
+{
+    "author": "AWD",
+    "dependencies": {},
+    "keywords": [],
+    "name": "toha-heavy-industries",
+    "pebble": {
+        "displayName": "Toha Heavy Industries",
+        "enableMultiJS": true,
+        "messageKeys": [],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/THIbackground_down.png",
+                    "name": "THI_IMAGE_BACKGROUND_LOWER",
+                    "targetPlatforms": null,
+                    "type": "png"
+                },
+                {
+                    "file": "images/THIbackground.png",
+                    "name": "THI_IMAGE_BACKGROUND",
+                    "targetPlatforms": null,
+                    "type": "png"
+                },
+                {
+                    "file": "images/THI Small Icon.png",
+                    "menuIcon": true,
+                    "name": "THI_SMALL",
+                    "targetPlatforms": null,
+                    "type": "png"
+                },
+                {
+                    "file": "fonts/perfect-dos-vga.ttf",
+                    "name": "FONT_PERFECT_DOS_12",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "file": "fonts/perfect-dos-vga.ttf",
+                    "name": "FONT_PERFECT_DOS_28",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "compatibility": "2.7",
+                    "file": "fonts/perfect-dos-vga.ttf",
+                    "name": "FONT_PERFECT_DOS_20",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "compatibility": "2.7",
+                    "file": "fonts/perfect-dos-vga.ttf",
+                    "name": "FONT_PERFECT_DOS_48",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "file": "fonts/perfect-dos-vga.ttf",
+                    "name": "FONT_PERFECT_DOS_18",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "file": "fonts/perfect-dos-vga.ttf",
+                    "name": "FONT_PERFECT_DOS_24",
+                    "targetPlatforms": null,
+                    "type": "font"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "diorite"
+        ],
+        "uuid": "443b908b-00f9-4344-9aa6-7be0e69bc356",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.0.0"
+}
